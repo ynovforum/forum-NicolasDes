@@ -1,0 +1,29 @@
+if user
+    h1 Welcome #{user.username} !
+    a(href="/connexion") Log out
+    br
+    a(href="/question") Partager sur le fil d'actualité
+
+
+    h2 Fil des questions
+    for actualite in actualites
+        h3 Publication
+        br
+        h1 #{actualite.article} #{actualite.article.length}
+
+        for commentaire in actualite.commentaires
+            h3 commentaire
+            commentaire #{commentaire.avis}
+        form(action='/commentaire/' + actualite.id, method='post' )
+            div
+                label(for='avis') Commentaire
+                input(id='avis' name='avis')
+                input(type='submit')
+
+
+else
+    p Please log in.
+    a(href="/connexion") Log in
+    p Ou inscris toi !
+    a(href="/new") Inscrivez-Vous
+
