@@ -1,5 +1,29 @@
-h1 UNE QUESTION ?
+doctype html
+html(lang='fr')
 
-form(method="post")
-    input(type="article", name="article", placeholder="question")
-    button(type="submit") VALIDER
+    head
+        meta(charset='UTF-8')
+        title Forum
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        link(rel="stylesheet", href="/css/question.css")
+        div(class="navbar")
+            li(href="") Home
+            li(href="") News
+            li(href="") Contact
+            li(href="") About
+            div(class="right")
+                li(href="") About
+
+    body
+        div(class="question")
+            div(class="first")
+                h1 New Question
+            div(class="formulaire")
+                form(method="post")
+                    div(class="title")
+                        label Titre
+                        input(id='title' name='title')
+                    div(class="content")
+                        label(for='content') Question
+                        input(id='content' name='content')
+                    button(type="submit") VALIDER

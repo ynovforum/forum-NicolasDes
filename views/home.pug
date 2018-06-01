@@ -1,29 +1,70 @@
-if user
-    h1 Welcome #{user.username} !
-    a(href="/connexion") Log out
-    br
-    a(href="/question") Partager sur le fil d'actualité
+doctype html
+html(lang='fr')
+
+    head
+        meta(charset='UTF-8')
+        title Forum
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        link(rel="stylesheet", href="/css/home.css")
+    if user
+        div(class="navbar")
+            li
+                a(href="") Home
+            li
+                a(href="/profile") Profil
+            li
+                a(href="/question") Question
+            li
+                a(href="") About
+            div(class="right")
+                li(href="") Deconnexion
 
 
-    h2 Fil des questions
-    for actualite in actualites
-        h3 Publication
-        br
-        h1 #{actualite.article} #{actualite.article.length}
+    body
+        div(class="toutou")
+            if user
+                h3 Questions
+                div(class="container")
+                    div(class="container-gauche")
+                        img(src="image/111.png")
+                        div(class="sous")
+                            div(class="text")
+                                p Designin in US
+                                p United States, San francisco
+                            div(class="boutt")
+                                button(action="") Afficher
+                    div(class="container-droite")
+                        img(src="image/111.png")
+                        div(class="sous")
+                            div(class="text")
+                                p Designin in US
+                                p United States, San francisco
+                            div(class="boutt")
+                                button(action="") Afficher
+                div(class="title")
+                    a Toutes les questions
+                div(class="tableau")
+                    ul
+                        li titre
+                        li auteur
+                        li date
 
-        for commentaire in actualite.commentaires
-            h3 commentaire
-            commentaire #{commentaire.avis}
-        form(action='/commentaire/' + actualite.id, method='post' )
-            div
-                label(for='avis') Commentaire
-                input(id='avis' name='avis')
-                input(type='submit')
+                for actualite in actualites
+                    actualite
+                    div(class="tableau")
+                        ul
+                            li #{actualite.title}
+                            li #{actualite.content}
+                            li #{moment(actualite.createdAt).fromNow()}
+                            a(href="/affichage/" + actualite.id)
+                                button Afficher
 
 
-else
-    p Please log in.
-    a(href="/connexion") Log in
-    p Ou inscris toi !
-    a(href="/new") Inscrivez-Vous
+
+            else
+                div(class="block")
+                    div(class="co")
+                        a(href="/connexion") Connectez-vous !
+                    div(class="ins")
+                        a(href="/new") Inscrivez-Vous !
 

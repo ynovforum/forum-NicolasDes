@@ -1,9 +1,23 @@
-h1 INSCRIVEZ-VOUS
+doctype html
+html(lang='fr')
 
-form(method="post")
-    input(type="username", name="username", placeholder="username")
-    input(type="email", name="email", placeholder="email")
-    input(type="password", name="password", placeholder="password")
-    input(type="bio", name="bio", placeholder="bio")
+    head
+        meta(charset='UTF-8')
+        title Forum
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        link(rel="stylesheet", href="/css/new.css")
 
-    button(type="submit") VALIDER
+    body
+        div(class="formulaire")
+            div(class="formulaire-fleche")
+                div(class="icon-mail")
+                    img(src="image/mail.png")
+                h1 Inscription
+            div(class="formulaire-login")
+                form(method="post")
+                    input(type="username", name="username", placeholder="username")
+                    input(type="email", name="email", placeholder="email")
+                    input(type="password", name="password", placeholder="password")
+                    input(type="bio", name="bio", placeholder="bio")
+
+                    button(type="submit") VALIDER

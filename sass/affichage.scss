@@ -1,0 +1,24 @@
+.navbar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #259af2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 67px;
+}
+
+
+.right{
+  width: 80%;
+  text-align: right;
+}
+
+li{
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}

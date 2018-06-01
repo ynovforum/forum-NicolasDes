@@ -1,8 +1,41 @@
-h1 CONNECTE-TOI
+doctype html
+html(lang='fr')
 
-form(method="post")
-    input(type="username", name="username", placeholder="username")
-    input(type="password", name="password", placeholder="password")
-    button(type="submit") Log in
+    head
+        meta(charset='UTF-8')
+        title Forum
+        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
+        link(rel="stylesheet", href="/css/login.css")
 
-    a(href="/new") inscription
+    body
+        div(class="formulaire")
+            div(class="formulaire-fleche")
+                div(class="icon-mail")
+                    img(src="image/mail.png")
+                h1 Se connecter
+            div(class="formulaire-login")
+                form(method="post")
+                    label(for='username') Sign in with your name
+                    input(name="username", id='username')
+                    label(for='password-field') Password
+                    input(id='password-field' type='password' name='password')
+                    button(type="submit") Envoyer
+            div(class="social-network")
+                h2 Login via social networks
+                div(class="icon")
+                    a(href="")
+                        div(class="icon-twitter")
+                            img(src="image/twitter.png")
+                    a(href="")
+                        div(class="icon-facebook")
+                            img(src="image/facebook.png")
+                    a(href="")
+                        div(class="icon-pinterest")
+                            img(src="image/pinterest.png")
+                    a(href="")
+                        div(class="icon-dribbble")
+                            img(src="image/dribbble.png")
+                    div(class="account")
+                        a(href="/new") Don't have an account yet? Get Started
+                    div(class="forget")
+                        a(href="") Forgot Password?

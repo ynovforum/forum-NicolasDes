@@ -6,8 +6,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const Sequelize = require('sequelize');
 
+
 // Create an Express application
 const app = express();
+
+app.locals.moment = require('moment');
+app.locals.moment.locale('fr');
+
 
 // This secret will be used to sign and encrypt cookies
 const COOKIE_SECRET = 'cookie secret';
@@ -22,12 +27,14 @@ const User = database.define('user', {
     username : { type: Sequelize.STRING } ,
     email : { type: Sequelize.STRING } ,
     bio : { type: Sequelize.STRING } ,
-    role : { type: Sequelize.ENUM('user', 'admin')} , //pou le pug => if user.role === 'admin'
+    role : { type: Sequelize.ENUM('admin', 'utilisateur' ), defaultValue: 'utilisateur' } ,
     password : { type: Sequelize.STRING }
 });
 
 const Actualite = database.define('actualite', {
-    article : { type: Sequelize.STRING } ,
+    title: { type : Sequelize.STRING},
+    content: { type: Sequelize.STRING },
+    resolvedAt: { type: Sequelize.DATE },
 });
 
 
@@ -37,6 +44,13 @@ const Commentaire = database.define('commentaire', {
 
 Actualite.hasMany(Commentaire);
 Commentaire.belongsTo(Actualite);
+
+User.hasMany(Commentaire);
+Commentaire.belongsTo(User);
+
+User.hasMany(Actualite);
+Actualite.belongsTo(User);
+
 
 database.sync().then(r => {
     console.log("DB SYNCED");
@@ -52,6 +66,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Parse cookies so they're attached to the request as
 // request.cookies
 app.use(cookieParser(COOKIE_SECRET));
+app.use(express.static('public'));
 
 passport.use(new LocalStrategy((username, password, done) => {
     User
@@ -103,26 +118,37 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-    if (req.user) {
-        Actualite.findAll({include:[Commentaire]}).then((actualites) => {
-            res.render('home', {
-                actualites: actualites,
-                user: req.user
-            });
-        });
+app.get('/',(req,res) => {
+    Actualite
+        .sync()
+        .then(() => {
+            Actualite
+                .findAll({include:[{model: Commentaire,include:[User]}, User ]})
+                .then((actualites) => {
+                    console.log(actualites);
+                    res.render( 'home', { actualites, user : req.user});
+                })
+        })
 
-
-
-    } else {
-        User.findAll().then((users) => {
-            res.render('home', {
-                users: users
-            });
-        });
-    }
 });
 
+app.get('/profile',(req,res) => {
+    res.render('profile');
+});
+
+
+app.get('/question', (req, res) => {
+    // Render the login page
+    res.render('question');
+});
+
+app.post('/question', (req, res) => {
+    const { title, content } = req.body;
+    Actualite
+        .sync()
+        .then(() => Actualite.create({ title, content, userId: req.user.id }))
+        .then(() => res.redirect('/'));
+});
 
 app.get('/connexion', (req, res) => {
     // Render the login page
@@ -134,7 +160,8 @@ app.get('/connexion', (req, res) => {
 
 app.post('/connexion',
     // Authenticate user when the login form is submitted
-    passport.authenticate('local', {
+    passport.
+    authenticate('local', {
         // If authentication succeeded, redirect to the home page
         successRedirect: '/',
         // If authentication failed, redirect to the login page
@@ -142,9 +169,22 @@ app.post('/connexion',
     })
 );
 
-app.get('/commentaire',(req,res) => {
-    res.render('commentaire');
+app.get('/affichage/:actualiteId', (req, res) => {
+    const { title, content } = req.body;
+    Actualite
+        .sync()
+        .then(() => Actualite.findOne({where: {id: req.params.actualiteId} , include:[{model: Commentaire,include:[User]}, User ]}))
+        .then((actualite) => res.render('affichage', {actualite, user: req.user}));
 });
+
+app.post('/affichage/:actualiteId/resolved', (req, res) => {
+    console.log('yes')
+    Actualite
+        .sync()
+        .then(() => Actualite.update({ resolvedAt: new Date()}, {where: {id: req.params.actualiteId}}))
+        .then(()=> res.redirect('/'));
+});
+
 
 app.post('/commentaire/:actualiteId', (req, res) => {
     const { avis } = req.body;
@@ -160,47 +200,22 @@ app.get('/new', (req, res) => {
     res.render('new');
 });
 
+
 app.post('/new', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const email = req.body.email;
-    const bio = req.body.bio;
-    const role = req.body.role;
-    
+    const { username, bio, email, password} = req.body;
     User
-        .create({
-            username: username,
-            password: password,
-            email: email,
-            bio: bio,
-            role: role
+        .sync()
+        .then(() => {return User.count()})
+        .then((count) =>
+        { let role = 'utilisateur'
+            if (count == 0){
+                role = 'admin'
+            }
+            User.create({ username, bio, role, email, password})
         })
-        .then((user) => {
-            req.login(user, () => {
-                res.redirect('/');
-            })
-        })
-});
-
-app.get('/question', (req, res) => {
-    // Render the login page
-    res.render('question');
-});
-
-app.post('/question', (req, res) => {
-    const article = req.body.article;
-    Actualite
-        .create({
-            article: article,
-        })
-        .then((actualite) => {
-            req.login(actualite, () => {
-                res.redirect('/');
-            })
-        })
+        .then(() => res.redirect('/'));
 });
 
 
 
-
-app.listen(3000);
+    app.listen(3000);

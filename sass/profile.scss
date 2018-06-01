@@ -1,0 +1,192 @@
+body{
+  
+  margin: 0;
+  background-color: #eff3f6;
+  //background-image: url(https://cdn.discordapp.com/attachments/450559026338594827/450560660472856577/unknown.png);
+  //background-repeat: no-repeat;
+  //background-size: 100% auto;
+}
+
+.navbar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #259af2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 67px;
+}
+
+li{
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+input{
+  width: 70%;
+
+}
+
+.right{
+  width: 80%;
+  text-align: right;
+}
+
+.block{
+  display: flex;
+  width: 60%;
+  margin: auto;
+  margin-top: 98px;
+
+}
+
+.block-gauche{
+  margin-left: -8px;
+  width: 353px;
+  height: 100%;
+  background-color: #ffffff;
+
+}
+
+.block-gauche-list{
+  border: solid 1px #e7e9ed;
+  display: flex;
+  height: 56px;
+  width: 352px;
+
+}
+
+.block-gauche-list h4{
+  margin-top: 10px;
+
+}
+
+
+.icon {
+  padding-top: 9px;
+  width: 37px;
+  height: 29px;
+  background-color: #eff3f6;
+  margin-right: 29px;
+  margin-left: 10px;
+  margin-top: 8px;
+  border-radius: 1px;
+  text-align: center;
+
+}
+
+.text{
+  text-align: left;
+  margin-left: -10px;
+  line-height: 0px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.block-droite{
+  width: 60%;
+  margin-left: 4%;
+  background-color:#ffffff;
+  height: 420px;
+
+}
+
+.block-droite h4{
+
+  margin-bottom: 4px;
+  margin-top: 0px;
+  font-size: 14px;
+  line-height: 46px;
+}
+
+h2{
+  margin-left: 20px;
+}
+
+.name input{
+  width: 400px;
+}
+
+.title{
+  display: flex;
+}
+
+.photo{
+  padding-top: 20px;
+  width: 33px;
+  height: 50px;
+  margin-right: 35px;
+  margin-left: 39px;
+
+}
+
+.name{
+  width: 60%;
+  margin-top: -5px;
+}
+.bio input{
+  width: 95%;
+  height: 53px;
+}
+.champ input{
+  width: 76%;
+  height: 23px;
+}
+
+.champ button{
+  color: white;
+  background-color: green;
+  border-radius: 4px;
+  width: 17%;
+  margin-left: 11px;
+  height: 32px;
+}
+.reste{
+  text-align: left;
+  margin-left: 21px;
+}
+.block-bas{
+  width: 36%;
+  margin-left: 678px;
+  background-color: #ffffff;
+  margin-top: 33px;
+  line-height: 36px;
+  margin-bottom: 98px
+}
+
+.services{
+  display: block;
+  width: 85%;
+  font-size: 15px;
+  margin-left: auto;
+  margin-top: 0;
+  line-height: 40px;
+  margin-right: 52px;
+
+}
+.nom{
+  display: flex;
+  align-items: center;
+}
+.service{
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #e7e9ed;
+}
+
+
+
+.adresse{
+  display: block;
+  text-align: right;
+  margin-left: auto;
+}
+
+button{
+  width: 10%;
+  height: 20px;
+}
