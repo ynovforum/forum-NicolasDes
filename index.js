@@ -118,6 +118,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 app.get('/',(req,res) => {
     Actualite
         .sync()
@@ -132,13 +134,19 @@ app.get('/',(req,res) => {
 
 });
 
-app.get('/profile',(req,res) => {
-    res.render('profile');
+
+
+
+app.get('/profile/:userId', (req, res) => {
+    const { username, bio, email, password} = req.body;
+    User
+        .sync()
+        .then(() => User.findOne({where: {id: req.params.userId} , User }))
+        .then((user) => res.render('profile', {user, user: req.user}));
 });
 
 
 app.get('/question', (req, res) => {
-    // Render the login page
     res.render('question');
 });
 

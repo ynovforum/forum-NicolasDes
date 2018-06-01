@@ -11,7 +11,7 @@ html(lang='fr')
             li
                 a(href="") Home
             li
-                a(href="/profile") Profil
+                a(href="/profile/" + user.id) Profil
             li
                 a(href="/question") Question
             li
@@ -52,13 +52,20 @@ html(lang='fr')
                 for actualite in actualites
                     actualite
                     div(class="tableau")
-                        ul
-                            li #{actualite.title}
-                            li #{actualite.content}
-                            li #{moment(actualite.createdAt).fromNow()}
-                            a(href="/affichage/" + actualite.id)
-                                button Afficher
-
+                        if actualite.resolvedAt === null
+                            ul
+                                li #{actualite.title}
+                                li #{actualite.user.username}
+                                li #{moment(actualite.createdAt).fromNow()}
+                                a(href="/affichage/" + actualite.id)
+                                    button Afficher
+                        else
+                            ul
+                                li #{actualite.title}
+                                li #{actualite.user.username}
+                                li #{moment(actualite.createdAt).fromNow()}
+                                a(href="/affichage/" + actualite.id)
+                                    button Résolu
 
 
             else
