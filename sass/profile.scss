@@ -2,9 +2,7 @@ body{
   
   margin: 0;
   background-color: #eff3f6;
-  //background-image: url(https://cdn.discordapp.com/attachments/450559026338594827/450560660472856577/unknown.png);
-  //background-repeat: no-repeat;
-  //background-size: 100% auto;
+
 }
 
 .navbar{
@@ -18,6 +16,12 @@ body{
   align-items: center;
   height: 67px;
 }
+
+.navbar a{
+  text-decoration: none;
+  color: white;
+}
+
 
 li{
   display: block;

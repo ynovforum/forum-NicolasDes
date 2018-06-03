@@ -4,25 +4,29 @@ html(lang='fr')
     head
         meta(charset='UTF-8')
         title Forum
-        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
         link(rel="stylesheet", href="/css/home.css")
     if user
         div(class="navbar")
             li
-                a(href="") Home
+                a(href="/") Home
             li
                 a(href="/profile/" + user.id) Profil
             li
                 a(href="/question") Question
             li
-                a(href="") About
+                if user.role === "admin"
+                    a(href="/admin/")
+                        span Administrateur
+                else
+                    a(href="") About
             div(class="right")
-                li(href="") Deconnexion
+                li
+                    a(href="deco") Deconnexion
 
 
     body
-        div(class="toutou")
-            if user
+        if user
+            div(class="toutou")
                 h3 Questions
                 div(class="container")
                     div(class="container-gauche")
@@ -42,36 +46,46 @@ html(lang='fr')
                             div(class="boutt")
                                 button(action="") Afficher
                 div(class="title")
-                    a Toutes les questions
+                    p Toutes les questions
                 div(class="tableau")
-                    ul
-                        li titre
-                        li auteur
-                        li date
+                    div(class="col1")
+                        div(class="l1")
+                            p titre
+                        div(class="l1")
+                            p auteur
+                        div(class="l1")
+                            p date
+                        div(class="l1")
+                            p
 
-                for actualite in actualites
-                    actualite
-                    div(class="tableau")
-                        if actualite.resolvedAt === null
-                            ul
-                                li #{actualite.title}
-                                li #{actualite.user.username}
-                                li #{moment(actualite.createdAt).fromNow()}
-                                a(href="/affichage/" + actualite.id)
-                                    button Afficher
-                        else
-                            ul
-                                li #{actualite.title}
-                                li #{actualite.user.username}
-                                li #{moment(actualite.createdAt).fromNow()}
-                                a(href="/affichage/" + actualite.id)
-                                    button Résolu
-
-
-            else
-                div(class="block")
-                    div(class="co")
-                        a(href="/connexion") Connectez-vous !
-                    div(class="ins")
-                        a(href="/new") Inscrivez-Vous !
-
+                    for actualite in actualites
+                        actualite
+                        div(class="tableau")
+                            div(class="col1")
+                                if actualite.resolvedAt === null
+                                    div(class="l1")
+                                        p #{actualite.title}
+                                    div(class="l1")
+                                        p #{actualite.user.username}
+                                    div(class="l1")
+                                        p #{moment(actualite.createdAt).fromNow()}
+                                    div(class="l1")
+                                        a(href="/affichage/" + actualite.id)
+                                            button Afficher
+                                else
+                                    div(class="col1")
+                                        div(class="l1")
+                                            p #{actualite.title}
+                                        div(class="l1")
+                                            p #{actualite.user.username}
+                                        div(class="l1")
+                                            p #{moment(actualite.createdAt).fromNow()}
+                                        div(class="l1")
+                                            a(href="/affichage/" + actualite.id)
+                                                button Résolu
+        else
+            div(class="block")
+                div(class="co")
+                    a(href="/connexion") Connectez-vous !
+                div(class="ins")
+                    a(href="/new") Inscrivez-Vous !

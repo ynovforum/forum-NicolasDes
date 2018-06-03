@@ -193,7 +193,6 @@ app.post('/affichage/:actualiteId/resolved', (req, res) => {
         .then(()=> res.redirect('/'));
 });
 
-
 app.post('/commentaire/:actualiteId', (req, res) => {
     const { avis } = req.body;
     Commentaire
@@ -208,6 +207,10 @@ app.get('/new', (req, res) => {
     res.render('new');
 });
 
+app.get('/admin', (req, res) => {
+    // Render the new page
+    res.render('admin');
+});
 
 app.post('/new', (req, res) => {
     const { username, bio, email, password} = req.body;
@@ -223,6 +226,12 @@ app.post('/new', (req, res) => {
         })
         .then(() => res.redirect('/'));
 });
+
+app.get('/deco', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
 
 
 

@@ -4,15 +4,25 @@ html(lang='fr')
     head
         meta(charset='UTF-8')
         title Forum
-        link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet")
         link(rel="stylesheet", href="/css/question.css")
+    if user
         div(class="navbar")
-            li(href="") Home
-            li(href="") News
-            li(href="") Contact
-            li(href="") About
+            li
+                a(href="/") Home
+            li
+                a(href="/profile/" + user.id) Profil
+            li
+                a(href="/question") Question
+            li
+                if user.role === "admin"
+                    a(href="/admin/")
+                        span Administrateur
+                else
+                    a(href="") About
             div(class="right")
-                li(href="") About
+                li
+                    a(href="deco") Deconnexion
+
 
     body
         div(class="question")
